@@ -5,12 +5,15 @@ using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
+using SimpleEchoBot.Dialogs;
+using System;
 
 namespace Microsoft.Bot.Sample.SimpleEchoBot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        //LogDatabase l = new LogDatabase();
         /// <summary>
         /// POST: api/Messages
         /// receive a message from a user and send replies
@@ -22,7 +25,19 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             // check if activity is of type message
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
+
+
+
+                LogDatabase.WriteToDatabase
+                (
+                    conversationid: activity.Conversation.Id
+                    , username: activity.From.Name
+                    , channel: activity.ChannelId
+                    , message: activity.Text
+                );
+
                 await Conversation.SendAsync(activity, () => new EchoDialog());
+
             }
             else
             {

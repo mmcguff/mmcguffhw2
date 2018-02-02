@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Net.Http;
+using SimpleEchoBot.Dialogs;
 
 
 namespace Microsoft.Bot.Sample.SimpleEchoBot
@@ -11,7 +12,9 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
     [Serializable]
     public class EchoDialog : IDialog<object>
     {
+        //LogDatabase l = new LogDatabase();
         protected int count = 1;
+       
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -20,9 +23,10 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
         public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
-            var message = await argument;
+            var a = await argument as Activity;
+            
 
-            if (message.Text == "reset")
+            if (a.Text == "reset")
             {
                 PromptDialog.Confirm(
                     context,
@@ -33,7 +37,23 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             }
             else
             {
-                await context.PostAsync($"{this.count++}: Thou hast said: {message.Text}");
+                count++;
+
+                var response = "Thou hast said: " + a.Text;
+
+                
+
+                await context.PostAsync($"{response}");
+
+                LogDatabase.WriteToDatabase
+                 (
+                     conversationid: a.Conversation.Id
+                     , username: "ElderBot"
+                     , channel: a.ChannelId
+                     , message: response
+                 );
+
+
                 context.Wait(MessageReceivedAsync);
             }
         }
