@@ -1,8 +1,4 @@
-
-
-
-
-
+--This script breaks down the user Table by Conversations Id.  
 Declare @t table (id int identity, ConId nvarchar(max));
 
 insert into @t

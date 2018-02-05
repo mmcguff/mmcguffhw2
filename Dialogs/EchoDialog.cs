@@ -13,7 +13,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
     public class EchoDialog : IDialog<object>
     {
         //LogDatabase l = new LogDatabase();
-        protected int count = 1;
+        //protected int count = 1;
        
 
         public async Task StartAsync(IDialogContext context)
@@ -25,23 +25,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         {
             var a = await argument as Activity;
             
-
-            if (a.Text == "reset")
-            {
-                PromptDialog.Confirm(
-                    context,
-                    AfterResetAsync,
-                    "Are you sure you want to reset the count?",
-                    "Didn't get that!",
-                    promptStyle: PromptStyle.Auto);
-            }
-            else
-            {
-                count++;
-
                 var response = "Thou hast said: " + a.Text;
-
-                
 
                 await context.PostAsync($"{response}");
 
@@ -53,25 +37,23 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                      , message: response
                  );
 
-
-                context.Wait(MessageReceivedAsync);
-            }
+                context.Wait(MessageReceivedAsync);            
         }
 
-        public async Task AfterResetAsync(IDialogContext context, IAwaitable<bool> argument)
-        {
-            var confirm = await argument;
-            if (confirm)
-            {
-                this.count = 1;
-                await context.PostAsync("Reset count.");
-            }
-            else
-            {
-                await context.PostAsync("Did not reset count.");
-            }
-            context.Wait(MessageReceivedAsync);
-        }
+        //public async Task AfterResetAsync(IDialogContext context, IAwaitable<bool> argument)
+        //{
+        //    var confirm = await argument;
+        //    if (confirm)
+        //    {
+        //        this.count = 1;
+        //        await context.PostAsync("Reset count.");
+        //    }
+        //    else
+        //    {
+        //        await context.PostAsync("Did not reset count.");
+        //    }
+        //    context.Wait(MessageReceivedAsync);
+        //}
 
     }
 }
