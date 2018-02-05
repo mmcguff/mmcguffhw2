@@ -25,7 +25,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         {
             var a = await argument as Activity;
             
-                var response = "Thou hast said: " + a.Text;
+                var response = "Repeating: " + a.Text;
 
                 await context.PostAsync($"{response}");
 
