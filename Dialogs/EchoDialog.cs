@@ -43,7 +43,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             }
             else
             {
-                response = "That is a good question!  I don't have a great answer for that but as Latter Days Saints we believe that all can receive answer from God (see Moroni: 10:3-5)";
+                response = "That is a good question!  I don't have a great answer for that but as Latter Days Saints we believe that all can receive answer from God (see <https://www.lds.org/scriptures/bofm/moro/10.4,5?lang=eng#2 | Moroni 10:4-5>)";
             }
 
             await context.PostAsync($"{response}");
@@ -66,7 +66,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 conversationid: a.Conversation.Id
                 , username: "ElderBot"
                 , channel: a.ChannelId
-                , message: response
+                , message: invite
             );
 
             context.Wait(MessageReceivedAsync);            
