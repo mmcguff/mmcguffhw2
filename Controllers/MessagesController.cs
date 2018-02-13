@@ -63,7 +63,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
                 if (message.MembersAdded.Any(o => o.Id == message.Recipient.Id))
                 {
-                    var welcome = "Hi, my name is Elder Bot.  How can I help you?";
+                    var welcome = "Hi, my name is Elder Bot.  Right now I can teach you about Faith, Repentance and Baptism.  What would you like to know more about?";
                     var reply = message.CreateReply(welcome);
               
                     ConnectorClient connector = new ConnectorClient(new Uri(message.ServiceUrl));
