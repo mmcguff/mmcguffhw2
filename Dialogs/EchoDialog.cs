@@ -102,6 +102,19 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                      , message: invite
                  );
 
+                var askAgain = "Glad I could help.  Right now I can teach you about Faith, Repentance and Baptism.  What would you like to know more about?";
+
+                await context.PostAsync($"{askAgain}");
+                LogDatabase.WriteToDatabase
+                  (
+                      conversationid: a.Conversation.Id
+                      , username: "ElderBot"
+                      , channel: a.ChannelId
+                      , message: askAgain
+                  );
+
+                context.Wait(AnswerQuestion);
+
             }
             else if(a.Text =="no")
             {
@@ -115,15 +128,15 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                      , message: apologize
                  );
 
-                var welcome = "Hi, my name is Elder Bot.  Right now I can teach you about Faith, Repentance and Baptism.  What would you like to know more about?";
+                var askAgain = "Right now I can teach you about Faith, Repentance and Baptism.  What would you like to know more about?";
 
-                await context.PostAsync($"{welcome}");
+                await context.PostAsync($"{askAgain}");
                 LogDatabase.WriteToDatabase
                   (
                       conversationid: a.Conversation.Id
                       , username: "ElderBot"
                       , channel: a.ChannelId
-                      , message: welcome
+                      , message: askAgain
                   );
 
                 context.Wait(AnswerQuestion);
