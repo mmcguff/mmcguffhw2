@@ -27,9 +27,6 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             // check if activity is of type message
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
-
-
-
                 LogDatabase.WriteToDatabase
                 (
                     conversationid: activity.Conversation.Id
